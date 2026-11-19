@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "id": "efes-demo-1",
+  "seed": 2601102,
+  "cols": 7,
+  "rows": 7,
+  "mode": "destroyTargets",
+  "difficulty": "normal",
+  "moveLimit": 28,
+  "targets": [
+    {
+      "target": "cap",
+      "count": 18
+    },
+    {
+      "target": "box",
+      "count": 4
+    },
+    {
+      "target": "ice",
+      "count": 6
+    }
+  ],
+  "blocks": [
+    {
+      "x": 0,
+      "y": 0,
+      "id": 22
+    },
+    {
+      "x": 0,
+      "y": 2,
+      "id": 22
+    },
+    {
+      "x": 6,
+      "y": 4,
+      "id": 22
+    },
+    {
+      "x": 4,
+      "y": 0,
+      "id": 21
+    },
+    {
+      "x": 6,
+      "y": 2,
+      "id": 21
+    },
+    {
+      "x": 3,
+      "y": 3,
+      "id": 21
+    },
+    {
+      "x": 2,
+      "y": 5,
+      "id": 21
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "id": 2
+    },
+    {
+      "x": 1,
+      "y": 1,
+      "id": 20
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "id": 7
+    },
+    {
+      "x": 3,
+      "y": 1,
+      "id": 20
+    },
+    {
+      "x": 5,
+      "y": 2,
+      "id": 6
+    },
+    {
+      "x": 5,
+      "y": 2,
+      "id": 20,
+      "hp": 1
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "id": 3
+    },
+    {
+      "x": 2,
+      "y": 3,
+      "id": 20
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "id": 5
+    },
+    {
+      "x": 4,
+      "y": 4,
+      "id": 20,
+      "hp": 1
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "id": 1
+    },
+    {
+      "x": 1,
+      "y": 6,
+      "id": 20
+    },
+    {
+      "x": 3,
+      "y": 5,
+      "id": 11
+    },
+    {
+      "x": 1,
+      "y": 4,
+      "id": 10
+    },
+    {
+      "x": 5,
+      "y": 5,
+      "id": 13
+    }
+  ],
+  "blockTypes": [
+    {
+      "id": 1,
+      "role": "base",
+      "color": "pineapple",
+      "spawned": true
+    },
+    {
+      "id": 2,
+      "role": "base",
+      "color": "kozel",
+      "spawned": true
+    },
+    {
+      "id": 3,
+      "role": "base",
+      "color": "snack",
+      "spawned": true
+    },
+    {
+      "id": 4,
+      "role": "base",
+      "color": "sun",
+      "spawned": true
+    },
+    {
+      "id": 5,
+      "role": "base",
+      "color": "mill",
+      "spawned": true
+    },
+    {
+      "id": 6,
+      "role": "base",
+      "color": "cap",
+      "spawned": true
+    },
+    {
+      "id": 7,
+      "role": "base",
+      "color": "crown",
+      "spawned": true
+    },
+    {
+      "id": 10,
+      "role": "helper",
+      "helper": "bomb"
+    },
+    {
+      "id": 11,
+      "role": "helper",
+      "helper": "rocketHor"
+    },
+    {
+      "id": 12,
+      "role": "helper",
+      "helper": "rocketVer"
+    },
+    {
+      "id": 13,
+      "role": "helper",
+      "helper": "oneColor"
+    },
+    {
+      "id": 14,
+      "role": "helper",
+      "helper": "plane"
+    },
+    {
+      "id": 20,
+      "role": "blocker",
+      "blocker": "ice",
+      "hp": 2,
+      "overlay": true
+    },
+    {
+      "id": 21,
+      "role": "blocker",
+      "blocker": "box",
+      "hp": 1
+    },
+    {
+      "id": 22,
+      "role": "blocker",
+      "blocker": "stone",
+      "hp": 1
+    },
+    {
+      "id": 23,
+      "role": "blocker",
+      "blocker": "invisible",
+      "empty": true,
+      "passThroughGravity": true
+    }
+  ],
+  "boosters": {
+    "wind": 3,
+    "foam": 3,
+    "lightning": 3,
+    "sprout": 3
+  }
+}

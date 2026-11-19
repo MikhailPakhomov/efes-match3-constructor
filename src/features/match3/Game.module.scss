@@ -1,0 +1,108 @@
+:global(#root):has(.game) {
+  max-width: none;
+  background: #f7eedf;
+}
+.game {
+  --board-edge: #d28a61;
+  --game-padding-x: 18px;
+  color: #59402e;
+  background: #f7eedf;
+  min-height: 100dvh;
+  height: 100dvh;
+  width: 100%;
+  max-width: 480px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  padding: max(20px, env(safe-area-inset-top)) 18px max(18px, env(safe-area-inset-bottom));
+  overflow: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+  user-select: none;
+}
+.hard { --board-edge: #a873ae; }
+.expert { --board-edge: #bd5967; }
+.header { display: grid; grid-template-columns: 28px minmax(0, 1fr) 64px; align-items: start; gap: 12px; padding: 12px 2px 0; }
+.back { display: grid; place-items: center; width: 36px; height: 36px; margin-left: -4px; background: none; border: 0; padding: 0; img { display: block; width: 21px; height: 14px; } }
+.goalPanel { text-align: center; min-width: 0; }
+.goalPanel h1, .moves h2 { color: #a59483; font-size: 14px; line-height: 20px; font-weight: 700; margin-bottom: 10px; }
+.goals {
+  list-style: none; padding: 8px 5px 14px; margin: 0; display: flex; gap: 8px; justify-content: center;
+  background: #eddfcb; border-radius: 14px;
+  li { position: relative; width: 46px; height: 48px; flex: 0 1 46px; }
+  img { width: 100%; height: 100%; object-fit: contain; }
+  li > span { position: absolute; bottom: -12px; left: 50%; transform: translateX(-50%); display: grid; place-items: center; min-width: 26px; height: 26px; padding: 2px; border-radius: 50%; background: #eee1ce; border: 3px solid #fffdf7; font-size: 14px; font-weight: 800; color: #59402e; box-shadow: 0 4px 5px #59402e24; }
+  li.complete > span { color: #47733a; background: #e3eccf; }
+}
+.moves { text-align: center; }
+.moveWindow { position: relative; height: 70px; overflow: hidden; isolation: isolate; border-radius: 14px; background: #eddfcb; color: #59402e; }
+.moveWindow::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; border-radius: inherit; background: linear-gradient(to bottom, #eddfcb 0%, #eddfcb99 18%, #eddfcb00 36%, #eddfcb00 64%, #eddfcb99 82%, #eddfcb 100%); }
+.moveWindow.low { color: #b33e35; }
+.moveReel { position: absolute; top: 19px; left: 0; width: 100%; transition: transform 280ms ease-in-out; }
+.moveReel span { display: block; height: 32px; line-height: 32px; font-size: 32px; font-weight: 800; opacity: .3; transition: opacity 280ms ease-in-out, font-size 280ms ease-in-out; }
+.moveReel .currentMove { font-size: 40px; opacity: 1; }
+.fieldArea { flex: 1 0 auto; display: flex; align-items: center; justify-content: center; padding: 28px 0 12px; }
+.board {
+  position: relative;
+  width: min(100%, calc((100svh - 300px) * var(--ratio)));
+  padding: 8px; border-radius: 22px; border: 7px solid var(--board-edge); border-bottom-width: 10px;
+  background: #975f49; box-shadow: 0 5px 0 #6e493b, inset 0 3px 0 #713f31;
+  touch-action: none; overflow: visible;
+}
+.canvasWrapper { width: 100%; position: relative; }
+.canvasHost { position: absolute; inset: 0; canvas { display: block; width: 100%; height: 100%; } }
+.accessGrid {
+  position: absolute; inset: 0; display: grid; pointer-events: none;
+  button { opacity: 0; pointer-events: none; min-width: 0; padding: 0; border: 0; border-radius: 8px; background: transparent; }
+  button:focus-visible { opacity: 1; outline-offset: -3px; }
+}
+.canvasError { position: absolute; inset: 0; display: grid; align-content: center; gap: 12px; padding: 14px; text-align: center; color: white; background: #714332; font-size: 13px; button { border: 0; border-radius: 10px; padding: 8px; background: #eddfcb; color: #59402e; } }
+.footer {
+  flex-shrink: 0;
+  margin: auto calc(-1 * var(--game-padding-x)) 0;
+  min-height: 175px;
+  display: grid;
+  grid-template-rows: 170px;
+  align-items: center;
+  padding: 0 var(--game-padding-x) 5px;
+  background: #f7eedf url('/images/footer-ornament.png') repeat-x center top / auto 175px;
+}
+.message { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.boosters { margin: 0 auto; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3px; width: 88%; border: 7px solid var(--board-edge); border-bottom-width: 9px; padding: 5px; background: #975f49; border-radius: 22px; box-shadow: 0 5px 0 #6e493b; }
+.booster { position: relative; border: 0; border-radius: 12px; padding: 4px; aspect-ratio: 1; min-width: 0; background: #714332; img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; } &:disabled { opacity: .45; } }
+.board, .boosters {
+  position: relative;
+  background: linear-gradient(#975f49, #895440) padding-box,
+    linear-gradient(180deg, #df9466, var(--board-edge) 36%, #975a4b) border-box;
+  border-color: transparent;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -7px -7px -10px;
+    border-radius: inherit;
+    padding: 7px 7px 10px;
+    background: url('/images/wood-cracks.svg') center / 100% 100% no-repeat;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+.boosters::after { bottom: -9px; padding-bottom: 9px; }
+@media (max-width: 350px) {
+  .board::after { inset: -6px; padding: 6px; }
+}
+.activeBooster { background: #a77b4f; box-shadow: inset 0 0 0 2px #ffe4a4; }
+.count { position: absolute; bottom: -2px; right: 0; min-width: 22px; border-radius: 10px 0 8px 0; background: #8d5742; color: #fffaf0; font-size: 16px; font-weight: 800; }
+.boosterCancel {
+  flex: 0 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  button { border: 0; padding: 8px 12px; background: none; color: #80654d; text-decoration: underline; font-size: 11px; }
+}
+.modalCopy { font-size: 14px; line-height: 1.6; margin: 0 0 20px; }
+:global(dialog) .goals { color: #59402e; margin: 0 auto 28px; width: fit-content; min-width: 190px; }
+.modalActions { display: grid; gap: 16px; > button:not(:first-child) { border: 0; background: none; color: inherit; text-decoration: underline; font-size: 13px; } }
+.rules { display: grid; gap: 12px; margin-bottom: 20px; font-size: 13px; line-height: 1.5; }
+@media (max-width: 350px) { .game { --game-padding-x: 10px; padding-left: 10px; padding-right: 10px; } .header { gap: 7px; grid-template-columns: 24px minmax(0, 1fr) 54px; } .goals { gap: 3px; } .goals li { width: 42px; height: 45px; } .board { border-width: 6px; padding: 5px; } .boosters { width: 93%; } }
+@media (max-height: 700px) { .game { padding-top: 10px; padding-bottom: 8px; } .header { padding-top: 0; } .fieldArea { padding-top: 22px; padding-bottom: 6px; } .message { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; } }
